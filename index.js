@@ -80,7 +80,6 @@ app.get('/alexa-search/:query', function(req, res) {
 
         // Pass writer stream to ytdl
         ytdl(url, {
-          format: 'mp4',
           filter: 'video',
           quality: '140'
         }).pipe(writer);
