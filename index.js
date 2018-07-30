@@ -75,12 +75,13 @@ app.get('/alexa-search/:query', function(req, res) {
         cache[id] = { downloaded: false };
 
         // Create writer to output file for downloaded audio
-        var output_file = path.join(__dirname, 'public', 'site', id + '.m4a');
+        var output_file = path.join(__dirname, 'public', 'site', id + '.mp4');
         var writer = fs.createWriteStream(output_file);
 
         // Pass writer stream to ytdl
         ytdl(url, {
-          filter: 'audioonly',
+          format: 'mp4',
+          filter: 'video',
           quality: '140'
         }).pipe(writer);
 
@@ -97,7 +98,7 @@ app.get('/alexa-search/:query', function(req, res) {
       res.status(200).json({
         state: 'success',
         message: 'Uploaded successfully.',
-        link: '/site/' + id + '.m4a',
+        link: '/site/' + id + '.mp4',
         info: {
           id: id,
           title: metadata.title,
